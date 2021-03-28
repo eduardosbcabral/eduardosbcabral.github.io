@@ -5,49 +5,61 @@
     <link rel="stylesheet" href="css/custom.css"></link >
     <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
     <title>Eduardo Cabral - Software Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
   </head>
   <body>
-    <div class="container">
+    <div class="container center">
       <nav class="u-cf u-full-width">
         <button class="button button-custom u-pull-right" id="theme-button">Change theme</button>
         <a href="/blog/" class="button button-primary u-pull-right">Blog</a>
       </nav>
-      <div class="container center">
-        <h3>Hi, everyone call me <strong>Eduardo</strong> and welcome to my site.</h3>
-        <p>Here you will find some stuff about me and posts about content that i am current learning and studying.</p>
-        <p>I'm <span id="age"></span>, from brazil and current working mainly with <strong>Microsoft</strong> back-end technologies trying to write the best and most useful code that i can possible code.</p>
-        <p>My first time programming was back in 2016 when i started my computer science degree, that i have graduated at 2019.</p>
-        <p>Oh, i almost forgot that i have some other side projects that i hope they will be completed some day.</p>
+
+      <h3>Hi, everyone call me <strong>Eduardo</strong> and welcome to my site.</h3>
+      
+      <div class="container">
+        <div class="row">
+          <div class="twelve columns">
+            <p>Here you will find some stuff about me and posts about content that i am current learning and studying.</p>
+            <p>I'm <span id="age"></span>, from brazil and current working mainly with <strong>Microsoft</strong> back-end technologies trying to write the best and most useful code that i can possible code.</p>
+            <p>My first time programming was back in 2016 when i started my computer science degree, that i have graduated at 2019.</p>
+            <p>Oh, i almost forgot that i have some other side projects that i hope they will be completed some day.</p>
+          </div>
+        </div>
       </div>
-      <div class="center container">
-        <a class="button button-primary" href="https://github.com/eduardosbcabral" target="_blank">
-          Read and review my Code
-        </a>
-      </div>
+      
+      <a class="button button-primary" href="https://github.com/eduardosbcabral" target="_blank">
+        Read and review my Code
+      </a>
+      
       <hr />
-      <div class="center container">
-        <p><strong>My network activity</strong></p>  
-        <ul>
-          <li>
-            <a href="https://github.com/eduardosbcabral" target="_blank">GitHub</a> - my code <s>proud of it</s>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/eduardosbcabral/" target="_blank">LinkedIn</a> - my career
-          </li>
-          <li>
-            Follow me <a href="https://twitter.com/Theduardds" target="_blank">on Twitter</a>
-          </li>
-          <li>
-            ...or just send me an email <a href="mailto:eduardosbcabral@gmail.com">
-              eduardosbcabral@gmail.com
-            </a>
-          </li>
-        </ul>
-      </div> 
+
+      <p><strong>My network activity</strong></p>  
+
+      <ul>
+        <li>
+          <a href="https://github.com/eduardosbcabral" target="_blank">GitHub</a> - my code <s>proud of it</s>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/eduardosbcabral/" target="_blank">LinkedIn</a> - my career
+        </li>
+        <li>
+          Follow me <a href="https://twitter.com/Theduardds" target="_blank">on Twitter</a>
+        </li>
+        <li>
+          ...or just send me an email <a href="mailto:eduardosbcabral@gmail.com">
+            eduardosbcabral@gmail.com
+          </a>
+        </li>
+      </ul>
+
       <hr />
+
       <footer class="container center">
         Copyright Eduardo Cabral © <span id="current-year"></span>
       </footer>
+
+    </div>
   </body>
   <script>
     const currentYearElement = document.querySelector('#current-year');

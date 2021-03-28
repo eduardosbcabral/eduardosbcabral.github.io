@@ -80,3 +80,8 @@ ul {
   --button-color: #000;
   --button-background-border: #000;
 }
+
+.container {
+  max-width: 800px;
+}
+
