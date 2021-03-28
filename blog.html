@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="css/normalize.css"></link >
+    <link rel="stylesheet" href="css/skeleton.css"></link >
+    <link rel="stylesheet" href="css/custom.css"></link >
+  </head>
+  <body>
+    <div class="container">
+      <nav class="u-cf u-full-width">
+        <button class="button button-custom u-pull-right" id="theme-button">Change theme</button>
+        <a href="/" class="button button-primary u-pull-right">Home</a>
+      </nav>
+      <div class="container center">
+        <h3>
+          MAINTENANCE
+        </h3>
+        <h2>
+          🚧
+        </h2>
+      </div>
+      <hr />
+      <footer class="container center">
+        Copyright Eduardo Cabral © <span id="current-year"></span>
+      </footer>
+  </body>
+  <script>
+    const currentYearElement = document.querySelector('#current-year');
+    currentYearElement.textContent = new Date().getFullYear();
+
+    const currentTheme = localStorage.getItem('theme');
+    let dark = false;
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+      
+        if (currentTheme === 'dark') {
+          dark = true;
+        }
+    }
+
+    const themeButton = document.querySelector('#theme-button');
+    themeButton.onclick = function() {
+      dark = !dark;
+      if(dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+  </script>
+</html>
