@@ -1,12 +1,32 @@
 <html>
   <head>
-    <link rel="stylesheet" href="../css/normalize.css"></link >
-    <link rel="stylesheet" href="../css/skeleton.css"></link >
-    <link rel="stylesheet" href="../css/custom.css"></link >
-    <link rel="shortcut icon" type="image/jpg" href="../favicon.ico"/>
-    <title>Eduardo Cabral - Software Developer</title>
+    <meta charset="utf-8">
+
+    <title>Blog - Eduardo Cabral</title>
+    <meta name="title" content="Eduardo Cabral - Software Developer">
+    <meta name="description" content="My name is Eduardo and i'm a software developer.">
+    
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://educabral.me/">
+    <meta property="og:title" content="Eduardo Cabral - Software Developer">
+    <meta property="og:description" content="My name is Eduardo and i'm a software developer.">
+    <meta property="og:image" content="https://educabral.me/images/ec.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://educabral.me/">
+    <meta property="twitter:title" content="Eduardo Cabral - Software Developer">
+    <meta property="twitter:description" content="My name is Eduardo and i'm a software developer.">
+    <meta property="twitter:image" content="https://educabral.me/images/ec.png">
+    <meta name="twitter:site" content="@theduardds" />
+    <meta name="twitter:label1" content="Est. tempo de leitura">
+    <meta name="twitter:data1" content="7 minutos">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="/css/normalize.css"></link >
+    <link rel="stylesheet" href="/css/skeleton.css"></link >
+    <link rel="stylesheet" href="/css/custom.css"></link >
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.ico"/>
   </head>
   <body>
     <div class="container">
@@ -14,45 +34,40 @@
         <button class="button button-custom u-pull-right" id="theme-button">Change theme</button>
         <a href="/" class="button button-primary u-pull-right">Home</a>
       </nav>
-      <div class="container center">
-        <h3>
-          MAINTENANCE
-        </h3>
-        <h2>
-          🚧
-        </h2>
+      <div class="container">
+        <h2 class="center">My Blog</h2>
+        <div class="row">
+          <div class="twelve columns blog-resume-card">
+            <h5>
+              <a href="/blog/rabbitmq">
+                Design Patterns
+              </a>
+            </h5>
+            <p>
+              🚧 <strong>WORK IN PROGRESS</strong>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="twelve columns blog-resume-card">
+            <h5>
+              <a href="/blog/rabbitmq">
+                RabbitMQ
+              </a>
+              <span class="right blog-resume-card-date">
+                11/04/2021
+              </span>
+            </h5>
+            <p>O RabbitMQ é um servidor de mensageria também conhecido como <i>message broker</i> ou <i>queue manager</i>. 
+              Foi desenvolvido em Erlang e possui código aberto (<i>open-source</i>)...</p>
+          </div>
+        </div>
       </div>
       <hr />
       <footer class="container center">
         Copyright Eduardo Cabral © <span id="current-year"></span>
       </footer>
+
+      <script src="/js/theme.js"></script>
   </body>
-  <script>
-    const currentYearElement = document.querySelector('#current-year');
-    currentYearElement.textContent = new Date().getFullYear();
-
-    const currentTheme = localStorage.getItem('theme');
-    let dark = false;
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-      
-        if (currentTheme === 'dark') {
-          dark = true;
-        }
-    }
-
-    const themeButton = document.querySelector('#theme-button');
-    themeButton.onclick = function() {
-      dark = !dark;
-      if(dark) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      }
-      else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-  </script>
 </html>

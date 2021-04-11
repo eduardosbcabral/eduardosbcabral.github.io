@@ -23,10 +23,10 @@
     <meta name="twitter:data1" content="7 minutos">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/normalize.css"></link >
-    <link rel="stylesheet" href="css/skeleton.css"></link >
-    <link rel="stylesheet" href="css/custom.css"></link >
-    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="/css/normalize.css"></link >
+    <link rel="stylesheet" href="/css/skeleton.css"></link >
+    <link rel="stylesheet" href="/css/custom.css"></link >
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.ico"/>
 
   </head>
   <body>
@@ -57,7 +57,7 @@
 
       <p><strong>My network activity</strong></p>  
 
-      <ul>
+      <ul class="list-without-type">
         <li>
           <a href="https://github.com/eduardosbcabral" target="_blank">GitHub</a> - my code <s>proud of it</s>
         </li>
@@ -65,7 +65,7 @@
           <a href="https://www.linkedin.com/in/eduardosbcabral/" target="_blank">LinkedIn</a> - my career
         </li>
         <li>
-          Follow me <a href="https://twitter.com/Theduardds" target="_blank">on Twitter</a>
+          Follow me <a href="https://twitter.com/eduardobcabral" target="_blank">on Twitter</a>
         </li>
         <li>
           ...or just send me an email <a href="mailto:eduardosbcabral@gmail.com">
@@ -74,50 +74,12 @@
         </li>
       </ul>
 
-      <hr />
-
-      <footer class="container center" style="margin-bottom: 25px;">
+      <footer class="container center">
         Copyright Eduardo Cabral © <span id="current-year"></span>
       </footer>
 
     </div>
+    
+    <script src="/js/theme.js"></script>
   </body>
-  <script>
-    const currentYearElement = document.querySelector('#current-year');
-    currentYearElement.textContent = new Date().getFullYear();
-
-    function calculateAge() {
-      const ageElement = document.querySelector('#age');
-      const birthday = new Date(1998, 02, 16);
-      const ageDiff = Date.now() - birthday.getTime();
-      const ageDate = new Date(ageDiff);
-      ageElement.textContent = Math.abs(ageDate.getUTCFullYear() - 1970);
-    }
-
-    calculateAge();
-
-    const currentTheme = localStorage.getItem('theme');
-    let dark = false;
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-      
-        if (currentTheme === 'dark') {
-          dark = true;
-        }
-    }
-
-    const themeButton = document.querySelector('#theme-button');
-    themeButton.onclick = function() {
-      dark = !dark;
-      if(dark) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      }
-      else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-  </script>
 </html>

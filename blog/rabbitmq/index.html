@@ -1,0 +1,223 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>RabbitMQ | Blog - Eduardo Cabral</title>
+    <meta name="title" content="Eduardo Cabral - Software Developer">
+    <meta name="description" content="My name is Eduardo and i'm a software developer.">
+    
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://educabral.me/">
+    <meta property="og:title" content="Eduardo Cabral - Software Developer">
+    <meta property="og:description" content="My name is Eduardo and i'm a software developer.">
+    <meta property="og:image" content="https://educabral.me/images/ec.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://educabral.me/">
+    <meta property="twitter:title" content="Eduardo Cabral - Software Developer">
+    <meta property="twitter:description" content="My name is Eduardo and i'm a software developer.">
+    <meta property="twitter:image" content="https://educabral.me/images/ec.png">
+    <meta name="twitter:site" content="@theduardds" />
+    <meta name="twitter:label1" content="Est. tempo de leitura">
+    <meta name="twitter:data1" content="7 minutos">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/normalize.css"></link >
+    <link rel="stylesheet" href="/css/skeleton.css"></link >
+    <link rel="stylesheet" href="/css/custom.css"></link >
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.ico"/>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="u-cf u-full-width">
+        <button class="button button-custom u-pull-right" id="theme-button">Change theme</button>
+        <a href="/blog/" class="button button-primary u-pull-right">Blog</a>
+      </nav>
+      <div class="container">
+        <h2 class="center">RabbitMQ</h2>
+
+        <article>
+          <div>
+            <div>
+              <p>O RabbitMQ é um servidor de mensageria também conhecido como <i>message broker</i> ou <i>queue manager</i>. Foi desenvolvido em Erlang e possui código aberto (<i>open-source</i>).</p>
+
+              <p>A ideia mais básica do RabbitMQ é enviar uma mensagem de um Producer para um Consumer por meio de filas.</p>
+              <p></p>
+              <p><strong>Producer:</strong> basicamente envia é uma aplicação que envia mensagens.</p>
+              <p></p>
+              <p>
+                <strong>Queue: </strong>
+                <ul>
+                  <li>é basicamente uma caixa de correio. </li>
+                  <li>Todas as mensagens que vamos enviar usando o RabbitMQ passam por uma fila.</li>
+                  <li>É limitada somente por recursos de memória e disco.</li>
+                  <li>É essencialmente um grande buffer de mensagem</li>
+                </ul>
+              </p>
+              <p></p>
+              <p><strong>Consumer:</strong> é uma aplicação que geralmente fica esperando e observando a fila para receber mensagens.</p>
+            </div>
+
+            <hr />
+
+            <div>
+              <h4>Work queues</h4>
+              <h5>Distribuir tarefas entre os Workers (padrão de consumidores concorrentes)</h5>
+              <p>A ideia principal do Work Queues (Task Queues) é evitar executar a tarefa imediatamente e ter que esperar sua conclusão.</p>
+              <p>Nesse caso, a mensagem só é enviada a um consumer, ao contrário do padrão Publish/Subscribe, onde uma mensagem pode ser enviada à múltiplos consumers.</p>
+              <p>Um processo Worker de background fica observando as tarefas que chegam e programam sua execução. </p>
+              <p>É possível executar múltiplos Workers que conseguem trabalhar em conjunto com as tarefas que chegam.</p>
+              <p>É extremamente útil em aplicações web que contêm fluxos que as tarefas podem demorar bastante e uma simples requisição HTTP não daria conta de executar.</p>
+              <p></p>
+              <p>Uma das vantagens de se utilizar Workers é paralelizar a execução das tarefas. Caso a quantidade aumente, é possível simplesmente incluir um novo. </p>
+              <p><strong>Round-robin dispatching: </strong>é o método padrão do RabbitMQ, que distribui as mensagens em sequência para os consumers, assim em média irão receber a mesma quantidade de mensagens.</p>
+              <p></p>
+              <p><strong>Confirmação de mensagem (Message acknowledgment)</strong></p>
+              <p>Caso a implementação não esteja corretamente configurada, após o RabbitMQ entregar a mensagem, o consumer irá marcar para ser deletada.</p>
+              <p>Se um Worker morrer quando uma tarefa esteja sendo processada, a mensagem será perdida. Também irão se perder todas as mensagens que foram designadas para aquele Worker e que ainda estão na fila para serem executadas.</p>
+              <p>Para assegurar que a mensagem não irá ser perdida nesses casos, o RabbitMQ suporta confirmações de mensagem. Chamados de <em>ack</em>(acknowledgment), são enviados para o RabbitMQ após o término de uma tarefa para dizer que foi recebida, processada e que pode ser marcada para <em>DELETION.</em></p>
+              <p>Se um consumidor morrer sem enviar um <em>ack, </em>o RabbitMQ irá entender que a mensagem não foi processada completamente e vai reenviar para a fila, onde um dos consumers online irão receber a nova mensagem.</p>
+              <p><strong>Durabilidade da mensagem (Message Durability)</strong></p>
+              <p>Vimos que se o Worker morrer, podemos evitar perder a mensagem. Mas se o próprio RabbitMQ cair ou crashar, irá esquecer e perder todas as mensagens. Para evitar esse problema, temos que marcar a mensagem e fila como <strong>durable.</strong></p>
+              <p></p>
+              <p><strong>Despacho justo (Fair dispatch)</strong></p>
+              <p>Mesmo ao utilizarmos o método Round-robin para despachar as mensagens, é possível que um Worker em específico irá receber mais trabalho que o outro. </p>
+              <p>Pense nas tarefas enviadas como par e ímpar, pares são as tarefas leves e ímpares as pesadas. Como o método padrão do RabbitMQ envia em sequência, um Worker pode sempre estar recebendo as mensagens ímpares e esteja sobrecarregado.</p>
+              <p>Para contornar o problema, é possível configurar o <em>Channel com prefetch_count=1, </em>que evita o RabbitMQ de enviar mais de uma mensagem para o Worker ao mesmo tempo. Ou seja, espera o <strong><em>ack</em></strong><em> </em>do consumidor para poder enviar uma nova mensagem.</p>
+              <p></p>
+              <figure class="center">
+                <a href="/blog/rabbitmq/img/rabbitmq_0.png">
+                  <img style="width:396px" src="/blog/rabbitmq/img/rabbitmq_0.png" class="blog-image" />
+                </a>
+              </figure>
+            </div>
+
+            <hr />
+            
+            <div>
+              <h4>Publish/Subscribe</h4>
+              <h5>Enviar mensagens para múltiplos consumers ao mesmo tempo</h5>
+              <p>Nesse padrão, o <strong>producer </strong>entrega as mensagens para uma exchange do tipo <strong>fanout</strong>, e essa exchange faz o trabalho de entregar para todas as <strong>queues </strong>que ele conhece.</p>
+              <p>A relação entre a <strong>exchange </strong>e a <strong>queue</strong> é chamada de <strong>binding</strong>.</p>
+              <p></p>
+              <figure class="center">
+                <a href="/blog/rabbitmq/img/rabbitmq_1.png">
+                  <img style="width:329px" src="/blog/rabbitmq/img/rabbitmq_1.png" class="blog-image"/>
+                </a>
+              </figure>
+            </div>
+
+            <hr />
+
+            <div>
+              <h4>Routing</h4>
+              <h5>Receber mensagens seletivamente</h5>
+              <p>Routing torna possível dar subscribe em somente um subset de mensagens.</p>
+              <p>Estávamos utilizando uma exchange do tipo fanout, que transmite sem especificidade.</p>
+              <p>Agora iremos usar uma exchange do tipo <strong>direct</strong>, com ela conseguimos utilizar o roteamento de mensagens. A mensagem irá para as filas que a <code>binding key</code><strong> </strong>seja exatamente igual à <code>routing key</code> da mensagem.</p>
+              <figure class="center">
+                <a href="/blog/rabbitmq/img/rabbitmq_2.png">
+                  <img style="width:408px" src="/blog/rabbitmq/img/rabbitmq_2.png" class="blog-image" />
+                </a>
+                <figcaption>
+                  A exchange X (direct) tem duas filas atreladas. A primeira tem a binding key <code>orange</code> 
+                  e a segunda tem duas bindings, uma para a key <code>black</code> e outra para a <code>green</code>. 
+                  <strong>As mensagens que não utilizarem uma das 3 chaves serão descartadas.</strong>
+                </figcaption>
+              </figure>
+
+              <h5>Multiples Bindings (Ligações)</h5>
+              <p>Também podemos utilizar a mesma <code>binding key</code> para múltiplas filas, ou seja, a <strong>exchange </strong>do tipo <strong>direct </strong>irá se comportar exatamente da mesma forma que uma <strong>fanout</strong>.</p>
+              <figure class="center">
+                <a href="/blog/rabbitmq/img/rabbitmq_3.png">
+                  <img style="width:398px" src="/blog/rabbitmq/img/rabbitmq_3.png" class="blog-image" />
+                </a>
+                <figcaption>Múltiplas ligações.</figcaption>
+              </figure>
+              <p></p>
+              <figure class="center">
+                <a href="/blog/rabbitmq/img/rabbitmq_4.png">
+                  <img style="width:423px" src="/blog/rabbitmq/img/rabbitmq_4.png" class="blog-image" />
+                </a>
+                <figcaption>Múltiplas ligações com a binding key <i>error</i> apontando para duas filas.</figcaption>
+              </figure>
+            </div>
+
+            <hr />
+            
+            <div>
+              <h4>Tópicos</h4>
+              <p>Caso surja a necessidade de melhorar o fluxo da exchange, podemos usar o tipo <code>topic</code>, que é mais complexo e consegue manipular mensagens baseados em múltiplos critérios.</p>
+              <p>Mensagens enviadas para uma exchange do tipo <code>topic</code> precisam que seu <code>routing_key</code> seja composta por uma lista de palavras separadas por <code>.</code> , normalmente são relacionadas ao assunto/conteúdo/regra da mensagem enviada.</p>
+              <p>
+                A <code>binding key</code> também precisa ser da mesma forma. A lógica de um <code>topic</code> é parecida com de um <code>direct</code> - uma mensagem enviada para uma <code>routing key</code> em particular será entregada para todas as queue&#x27;s que estão ligadas a essa <code>binding key</code> . Mas tem dois casos especiais nesse tipo de exchange:
+                <ul>
+                  <li><code>*</code> pode substituir exatamente uma palavra.</li>
+                  <li><code>#</code> pode substituir zero ou mais palavras.</li>
+                </ul>
+              </p>
+              <figure class="center">
+                <a href="/blog/rabbitmq/img/rabbitmq_5.png">
+                  <img style="width:424px" src="/blog/rabbitmq/img/rabbitmq_5.png" class="blog-image" />
+                </a>
+              </figure>
+              <p>Nesse exemplo, iremos mandar mensagens que descrevem animais. As <code>routing keys</code> das mensagens irão consistir de 3 nomes: <code>&lt;speed&gt;.&lt;colour&gt;.&lt;species&gt;</code>.</p>
+              <p>Foram criadas 3 ligações: Q1 está ligada com a binding key <code>*.orange.*</code> e Q2 está com <code>*.*.rabbit</code> e <code>lazy.#</code> .</p>
+              <p>Pode ser sumarizada de forma que:
+                <ul>
+                  <li>Q1 está interessada em todos os animais laranjas.</li>
+                  <li>Q2 está em coelhos e tudo sobre animais preguiçosos(lazy).</li>
+                </ul>
+              </p>
+              <p>Mensagens(routing key):
+                <ul>
+                  <li><code>quick.orange.rabbit</code>: ambas as filas</li>
+                  <li><code>lazy.orange.elephant</code>: ambas as filas</li>
+                  <li><code>quick.orange.fox</code>: primeira fila</li>
+                  <li><code>lazy.brown.fox</code>: segunda fila</li>
+                  <li><code>lazy.pink.rabbit</code>: segunda primeira (única vez)</li>
+                  <li><code>quick.orange.male.rabbit</code>: nenhuma fila. Irá ser ignorada pois tem quatro palavras e não bate com nenhuma binding key.</li>
+                  <li><code>lazy.orange.male.rabbit</code>: segunda fila. Não irá ser ignorada pois bate com a binding (&quot;*.*.rabbit&quot;) mesmo que tenha 4 palavras.</li>
+                </ul>
+              </p>
+              <p></p>
+              <p>Obs: uma exchange do tipo <code>topic</code> é bastante versátil, podendo servir como uma <code>fanout</code> quando a fila está ligada com uma <code>#</code>. E se nenhum dos caracteres <code>#</code> e <code>*</code> forem usados, irá servir como um <code>direct</code>.</p>
+            </div>
+            
+            <hr />
+
+            <div>
+              <h4>RPC</h4>
+              <h4>Exemplo do padrão Request/reply</h4>
+              <p></p>
+              <figure class="center">
+                <a href="/blog/rabbitmq/img/rabbitmq_6.png">
+                  <img style="width:576px" src="/blog/rabbitmq/img/rabbitmq_6.png" class="blog-image" />
+                </a>
+              </figure>
+              <p>Quando o client é iniciado é criada uma fila de callback, exclusiva e anônima, onde o server irá retornar o resultado para o client. A fila é o local onde será armazenada a mensagem e posteriormente consumida pelo Server.</p>
+              <p>
+                Para uma chamada RPC é necessário que o client envie duas propriedades importantes:
+                <ul>
+                  <li>reply to – nome da fila de retorno da chamada callback</li>
+                  <li>correlation id – identificador único e exclusivo da solicitação</li>
+                </ul>
+              </p>
+              <p></p>
+              <p>Quando o client envia a solicitação para o server ele publica a mensagem em uma fila chamada rpc_queue.</p>
+              <p>O server está aguardando solicitações na fila rpc_queue. Quando aparecer uma nova solicitação, então, ele faz o trabalho de processamento e publica o resultado de volta para o client usando a fila de retorno definida pelo client na propriedade reply_to.</p>
+              <p>
+                E por fim, o client aguarda os dados de retorno e quando a mensagem aparece ele verifica se a mensagem que chegou é a que ele esperava e isso ele identifica pela propriedade correlation_id.
+              </p>
+            </div>
+          </div>
+       </article>
+      </div>
+      <hr />
+      <footer class="container center">
+        Copyright Eduardo Cabral © <span id="current-year"></span>
+      </footer>
+      <script src="/js/theme.js"></script>
+  </body>
+</html>
