@@ -1,0 +1,328 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>RabbitMQ | Blog - Eduardo Cabral</title>
+    <meta name="title" content="Eduardo Cabral - Software Developer">
+    <meta name="description" content="My name is Eduardo and i'm a software developer.">
+    
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://educabral.me/blog/rabbitmq/">
+    <meta property="og:title" content="RabbitMQ | Blog - Eduardo Cabral">
+    <meta property="og:description" content="Artigo sobre RabbitMQ.">
+    <meta property="og:image" content="https://educabral.me/images/ec.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://educabral.me/blog/rabbitmq/">
+    <meta property="twitter:title" content="RabbitMQ | Blog - Eduardo Cabral">
+    <meta property="twitter:description" content="Artigo sobre RabbitMQ.">
+    <meta property="twitter:image" content="https://educabral.me/images/ec.png">
+    <meta name="twitter:site" content="@eduardobcabral" />
+    <meta name="twitter:label1" content="Est. tempo de leitura">
+    <meta name="twitter:data1" content="10 minutos">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QKENBKFQWM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-QKENBKFQWM');
+    </script>
+
+    <link rel="stylesheet" href="/css/normalize.css"></link >
+    <link rel="stylesheet" href="/css/skeleton.css"></link >
+    <link rel="stylesheet" href="/css/custom.css"></link >
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.ico"/>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="u-cf u-full-width">
+        <button class="button button-custom u-pull-right" id="theme-button">Change theme</button>
+        <a href="/blog/" class="button button-primary u-pull-right">Blog</a>
+      </nav>
+      <div class="container">
+        <h2 class="center">Padrões de projeto</h2>
+
+        <article>
+          <h3>O que é?</h3>
+
+          <p>
+            Os padrões de projeto são soluções tentadas e testadas para problemas comuns no desenvolvimento de software. São praticamente plantas de obras que descrevem jeitos de resolver determinadas situações. É muito útil saber sobre o assunto pois ensinam como resolver várias situações utilizando os princípios de orientação a objetos.
+          </p>
+          <p>
+            Como definem uma linguagem em comum, integrantes de time podem usar para se comunicar mais eficientemente, pois o que você precisa é mencionar um padrão e todo mundo irá entender a ideia por trás.
+          </p>
+          <p>
+            Os padrões são normalmente descritos formalmente para que as pessoas possam reproduzi-los em diferentes contextos. Geralmente as descrições são formuladas nas seções a seguir:
+          </p>
+
+          <ul>
+            <li>
+              O <strong>Propósito</strong> do padrão descreve brevemente o problema e a solução.
+            </li>
+            <li>
+              A <strong>Motivação</strong> explica a fundo o problema e a solução que o padrão torna possível.
+            </li>
+            <li>
+              As <strong>Estruturas</strong> de classes mostram cada parte do padrão e como se relacionam.
+            </li>
+            <li>
+              <strong>Exemplos de código</strong> em uma das linguagens de programação populares tornam mais fácil compreender a ideia por trás do padrão.
+            </li>
+          </ul>
+
+          <a href="https://github.com/eduardosbcabral/design-patterns-talk">Link para o repositório contendo todos os códigos utilizados nesse artigo.</a>
+
+          <p></p>
+          
+          <h3>
+            História dos padrões
+          </h3>
+
+          <p>
+            Como os padrões são soluções típicas para alguns problemas, não existe um consenso em quando surgiram. Geralmente quando uma solução é repetida de novo em vários projetos, alguém irá nomeá-la e documentá-la em detalhe, para assim virar um padrão de projeto.
+          </p>
+          <p>
+            Mas o conceito surgiu primeiramente no livro Uma Linguagem de Padrões, escrito por Christopher Alexander. Logo após, a ideia foi seguida por outros quatro atores (conhecidos como Gang of Four) Erich Gamma, John Vlissides, Ralph Johnson, e Richard Helm no livro Padrões de Projeto — Soluções Reutilizáveis de Software Orientado a Objetos, escrito em 1994 no qual aplicaram o conceito dos padrões para programação.
+          </p>
+
+          <h3>
+            Alguns problemas...
+          </h3>
+
+          <p>
+            Muita gente acha que os conceitos são como um dogma, fazendo com que implementem direto ao ponto, sem entender e adaptá-los ao contexto da aplicação em desenvolvimento. 
+          </p>
+          <p>
+            Outro problema é com a utilização dos padrões por parte dos iniciantes, que não sabem analisar o momento certo de usá-los nas suas aplicações. Geralmente implementando uma solução para resolver um problema minúsculo, literalmente "usar um canhão para matar uma formiga". 
+          </p>
+
+          <hr />
+
+          <h3>
+            Padrões criacionais
+          </h3>
+
+          <p>
+            Estes padrões fornecem vários mecanismos de criação de objetos, que aumentam a flexibilidade e reutilização de código já existente.
+          </p>
+
+          <ul>
+            <li>Factory Method</li>
+            <li>Abstract Factory</li>
+            <li>Builder</li>
+            <li>Prototype</li>
+            <li>Singleton</li>
+          </ul>
+
+          <h3>
+            Padrões estruturais
+          </h3>
+
+          <p>
+            Estes padrões explicam como montar objetos e classes em estruturas maiores mas ainda mantendo essas estruturas flexíveis e eficientes.
+          </p>
+
+          <ul>
+            <li>Adapter</li>
+            <li>Bridge</li>
+            <li>Composite</li>
+            <li>Decorator</li>
+            <li>Facade</li>
+            <li>Flyweight</li>
+            <li>Proxy</li>
+          </ul>
+
+          <h3>
+            Padrões comportamentais
+          </h3>
+
+          <p>
+            Estes padrões são voltados aos algoritmos e a designação de responsabilidades entre objetos.
+          </p>
+
+          <ul>
+            <li>Chain of Responsibility</li>
+            <li>Command</li>
+            <li>Iterator</li>
+            <li>Mediator</li>
+            <li>Observer</li>
+            <li>State</li>
+            <li>Strategy</li>
+            <li>Template Method</li>
+            <li>Visitor</li>
+          </ul>
+
+          <hr />
+
+          <h3>Factory Method</h3>
+
+          <p>O padrão Factory Method diz para definir uma interface ou classe abstrata para criar um objeto, mas deixar que as subclasses decidam qual classe instanciar. Em outras palavras, as subclasses são responsáveis por criar a instância da classe.</p>
+
+          <h4>Problema</h4>
+          <p>Imagine que estamos implementando uma aplicação que ao cadastrar um produto, seja necessário notificar o usuário pelo Telegram. Até aí tudo bem, o sistema está funcionando corretamente chamando a classe da implementação de notificação diretamente no fluxo.</p>
+
+          <p>Mas após algum tempo, após sugestões dos usuários, surgiu-se a necessidade de notificar também pelo WhatsApp. Pensando nessa mudança, os desenvolvedores começaram a modificar os fluxos existentes inserindo diversos controles de fluxo, chamadas diretas para a implementação da notificação pelo WhatsApp.</p>
+
+          <p>Imagine que seja necessário implementar mais um tipo de notificação, então teríamos que mudar em todos os fluxos, incluir diretamente a chamada, e sujar mais ainda a base de código. Como resultado, a aplicação começa a ficar mais complexa, repleta de condicionais alterando o comportamento dela, dependendo das classes de notificação.</p>
+
+          <h4>Solução</h4>
+
+          <p>O padrão sugere que substitua as chamadas diretas de construção de objetos por chamadas usando um método fábrica. Os objetos continuam sendo instanciados usando o operador new, mas seriam criados dentro dessa fábrica.</p>
+          <p>Vendo por cima, essa mudança parece inútil, só mudando o local da chamada do construtor. No entanto, perceba que você pode sobrescrever o método fábrica em uma subclasse e alterar qual tipo de objeto está sendo criado pelo método.</p>
+          <p>Porém, há uma pequena desvantagem, precisamos que essas classes tenham uma classe ou interface em comum. Além disso, o método fábrica na classe base deve ter o seu tipo de retorno declarado como essa interface ou classe. </p>
+
+          <h4>Vantagens</h4>
+          <ul>
+            <li>Permite que as subclasses escolham o tipo de objeto a ser criado.</li>
+            <li>Diminui o acoplamento entre os objetos, eliminando a necessidade de vincular classes específicas. Isso significa que o código interage somente com a interface ou classe abstrata resultante, de modo que funcionará com quaisquer classes que implementem essa interface ou estenda essa classe abstrata.</li>
+            <li>Segue o principio de responsabilidade única do SOLID.</li>
+          </ul>
+
+          <h4>Desvantagens</h4>
+          <ul>
+            <li>O código final pode ficar mais complicado, pois precisamos utilizar o conceito de herança para implementar o padrão.</li>
+          </ul>
+
+          <p>Com o diagrama a seguir, conseguimos visualizar a implementação do exemplo utilizando o padrão:</p>
+          <figure class="center">
+            <a href="/blog/design-patterns/img/factory-method_1.png">
+              <img style="width:396px" src="/blog/design-patterns/img/factory-method_1.png" class="blog-image" />
+            </a>
+          </figure>
+
+          <a href="https://github.com/eduardosbcabral/design-patterns-talk/tree/main/DesignPatternsTalk.TemplateMethod">Link to the code</a>
+
+          <hr />
+
+          <h3>Builder</h3>
+
+          <p>É um padrão do tipo criacional que permite a criação de objetos complexos passo a passo. Separa a construção de um objeto complexo da sua representação para que o mesmo processo de construção possa criar diferentes representações.</p>
+
+          <h4>Problema</h4>
+          <p>Imagine que estamos criamos um objeto, mas para inicializá-lo é necessário muita configuração. Para isso podemos criar um construtor e receber como parâmetro, o problema é que irá ficar enorme, realizando muita coisa ao mesmo tempo. Além disso, há outro problema que esse objeto pode ter outras representações e para isso precisaríamos criar outro construtor que recebe somente os parâmetros necessários para construir essa representação.</p>
+          <p>Podemos mitigar esse problema criando outro problema, implementando somente um construtor gigantesco que recebe todos os dados de todas as representações, mas isso é ruim pois tem parâmetros que serão usados para um tipo e não para outro.</p>
+
+          <p>A implementação ficaria mais ou menos assim:</p>
+          <code>
+    new Objeto("Teste Objeto 1", 4, "Teste 2", null, false, true, null);
+    new Objeto("Teste Objeto 2", 0, null, "Teste 2", true, false, "Teste 3");
+          </code>
+          <br />
+          <h4>Solução</h4>
+          <p>O padrão Builder sugere que você extraia o código de construção do objeto para fora de sua própria classe e mova ele para objetos separados chamados builders. Normalmente é implementado usando uma interface fluente e irá conter todos os campos que existem no próprio objeto.</p>
+          <p>Só faz sentido usar o padrão somente quando os objetos são bastante complexos e necessitam muita configuração.</p>
+          
+          <h5>Diretor</h5>
+          <p>Se quisermos ir além da implementação normal, podemos extrair as chamadas dos métodos do builder em uma classe separada chamada diretor. A classe define a ordem de execução das etapas de construção, enquanto o builder serve como a implementação dessas etapas.</p>
+          <p>Ter essa classe não é estritamente necessário já que podemos realizar essas chamadas diretamente no fluxo principal. Mas pode ser um bom lugar para colocar várias rotinas de construção para que possamos reutilizá-las.</p>
+
+          <h4>Vantagens</h4>
+          <ul>
+            <li>Os parâmetros do construtor são reduzidos e fornecidos em chamadas de método, com isso o código fica legível.</li>
+            <li>Ajuda a diminuir a quantidade de parâmetros do construtor, mitigando a possibilidade de passar nulo para parâmetros opcionais.</li>
+            <li>O objeto é sempre instanciado em um estado completo.</li>
+            <li>Objetos imutáveis podem ser construídos sem muita lógica complexa no processo de construção de objetos.</li>
+          </ul>
+
+          <h4>Desvantagens</h4>
+          <ul>
+            <li>O número de linhas de código aumenta pelo menos o dobro, mas o esforço compensa em termos de flexibilidade no design e um código bem mais legível.</li>
+            <li>Requer a criação de um builder concreto para cada tipo diferente de objeto.</li>
+          </ul>
+
+          <a href="https://github.com/eduardosbcabral/design-patterns-talk/tree/main/DesignPatternsTalk.Builder">Link to the code</a>
+
+          <hr />
+
+          <h3>Facade (Fachada)</h3>
+          <p>É um padrão de projeto estrutural que fornece uma interface simplificada para uma biblioteca, um framework, ou qualquer conjunto complexo de classes.</p>
+
+          <h4>Problema</h4>
+          <p>Imagine que você precisa fazer seu código funcionar com um amplo conjunto de objetos que pertencem a uma biblioteca sofisticada ou framework.</p>
+          <p>Normalmente, você precisaria inicializar todos aqueles objetos, rastrear as dependências, executar métodos na ordem correta, e assim por diante.</p>
+          <p>Como resultado, a lógica de negócio de suas classes vai ficar fortemente acoplada aos detalhes de implementação das classes de terceiros, tornando difícil compreendê-lo e mantê-lo.</p>
+
+          <h4>Solução</h4>
+          <p>Uma fachada é uma classe que fornece uma interface simples para uma biblioteca complexa que contém muitas partes. </p>
+          <p>Uma fachada pode fornecer funcionalidades limitadas em comparação com trabalhar com as bibliotecas diretamente. Contudo, ela inclui apenas aquelas funcionalidades que o cliente se importa.</p>
+          <p>Ter uma fachada é útil quando você precisa integrar sua aplicação com uma biblioteca que tem dúzias de funcionalidades, mas você precisa de apenas um pouquinho delas.</p>
+          <p>Por exemplo, quando você liga para uma loja para fazer um pedido, um operador é sua fachada para todos os serviços e departamentos da loja. O operador fornece a você uma simples interface de voz para o sistema de pedido, pagamentos, e vários sistemas de entrega.</p>
+
+          <h4>Como implementar</h4>
+          <p>Verifique se é possível providenciar uma interface mais simples que a que a biblioteca já fornece. Você está no caminho certo se essa interface faz o código cliente independente de muitas classes do subsistema.</p>
+          <p>Declare e implemente essa interface em uma nova classe fachada. A fachada deve redirecionar as chamadas do código cliente para os objetos apropriados do subsistema. A fachada deve ser responsável por inicializar o subsistema e gerenciar seu ciclo de vida a menos que o código cliente já faça isso.</p>
+          <p>Para obter o benefício pleno do padrão, faça todo o código cliente se comunicar com a biblioteca apenas através da fachada. Agora o código cliente fica protegido de qualquer mudança no código do subsistema. Por exemplo, quando um subsistema recebe um upgrade para uma nova versão, você só precisa modificar o código na fachada.</p>
+          <p>Se a fachada ficar grande demais, considere extrair parte de seu comportamento para uma nova e refinada classe fachada.</p>
+
+          <h4>Vantagens</h4>
+          <ul>
+            <li>Você pode isolar seu código da complexidade de uma biblioteca externa.</li>
+          </ul>
+
+          <h4>Desvantagens</h4>
+          <ul>
+            <li>Uma fachada pode se tornar um objeto deus acoplado a todas as classes de uma aplicação.</li>
+          </ul>
+
+          <a href="https://github.com/eduardosbcabral/design-patterns-talk/tree/main/DesignPatternsTalk.Facade">Link to the code</a>
+
+          <hr />
+
+          <h3>Mediator</h3>
+          <p>O Mediator é um padrão comportamental que permite que você reduza as dependências caóticas entre objetos. O padrão restringe comunicações diretas entre objetos e os força a colaborar apenas através do objeto mediador.</p>
+
+          <h4>Problema</h4>
+          <p>Devemos sempre tentar projetar o sistema de forma que os componentes sejam fracamente acoplados e reutilizáveis. Essa abordagem torna nosso código mais fácil de manter e testar.</p>
+          <p>Na vida real, entretanto, frequentemente precisamos lidar com um conjunto complexo de objetos dependentes.</p>
+          <p>Esse acoplamento torna um objeto refém de outros, fazendo com que ele não consiga funcionar sozinho.</p>
+          <p>O resultado de uma modelagem com comportamentos distribuídos e dependente de outros objetos, encaminha o desenvolvedor a criar formas mais complexas para realizar customização.</p>
+          <p>É aí que o padrão do mediador pode ser útil.</p>
+
+          <h4>Solução</h4>
+          <p>A intenção do mediator é reduzir a complexidade e dependências entre objetos fortemente acoplados que se comunicam diretamente uns com os outros. Isso é obtido através da criação de um objeto mediador que cuida da interação entre os objetos dependentes. Consequentemente, toda a comunicação passa pelo mediador.</p>
+          <p>Isso promove um acoplamento fraco, já que um conjunto de componentes trabalhando em conjunto não precisa mais interagir diretamente. Em vez disso, eles se referem apenas ao único objeto mediador. Dessa forma, também é mais fácil reutilizar esses objetos em outras partes do sistema.</p>
+          <p>No diagrama UML abaixo, podemos identificar os seguintes participantes:</p>
+          <ul>
+            <li>Mediator define a interface que os objetos Colleague usam para se comunicar.</li>
+            <li>Colleague define a classe abstrata contendo uma única referência ao Mediador.</li>
+            <li>ConcreteMediator encapsula a lógica de interação entre objetos Colleague.</li>
+            <li>ConcreteColleague1 e ConcreteColleague2 se comunicam apenas por meio do Mediator.</li>
+          </ul>
+          <figure class="center">
+            <a href="/blog/design-patterns/img/mediator_1.png">
+              <img style="width:396px" src="/blog/design-patterns/img/mediator_1.png" class="blog-image" />
+            </a>
+          </figure>
+
+          <p>Como podemos ver, os objetos Colleague não se referem um ao outro diretamente. Em vez disso, toda a comunicação é realizada pelo Mediator.</p>
+          <p>Consequentemente, ConcreteColleague1 e ConcreteColleague2 podem ser reutilizados mais facilmente.</p>
+          <p>Além disso, no caso de precisarmos alterar a forma como os objetos Colleague funcionam juntos, só precisamos alterar a lógica do ConcreteMediator. Ou podemos criar uma nova implementação do Mediator.</p>
+
+          <h4>Vantagens</h4>
+          <ul>
+            <li><i>Princípio de responsabilidade única.</i> Você pode extrair as comunicações entre vários componentes para um único lugar, tornando as de mais fácil entendimento e manutenção.</li>
+            <li><i>Princípio aberto/fechado.</i> Você pode introduzir novos mediadores sem ter que mudar os próprios componentes.</li>
+            <li>Você pode reduzir o acoplamento entre os vários componentes de um programa.</li>
+            <li>Você pode reutilizar componentes individuais mais facilmente.</li>
+          </ul>
+
+          <h4>Desvantagens</h4>
+          <ul>
+            <li>Com o tempo um mediador pode evoluir para um Objeto Deus, que é um objeto que faz tudo, ou seja, tem muitas responsabilidades e é considerado um antipadrão em projetos.</li>
+          </ul>
+
+          <a href="https://github.com/eduardosbcabral/design-patterns-talk/tree/main/DesignPatternsTalk.Mediator">Link to the code</a>
+       </article>
+      </div>
+      <hr />
+      <footer class="container center">
+        Copyright Eduardo Cabral © <span id="current-year"></span>
+      </footer>
+      <script src="/js/theme.js"></script>
+  </body>
+</html>

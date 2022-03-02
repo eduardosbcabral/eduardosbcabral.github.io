@@ -135,3 +135,8 @@ code {
     width: 100% !important;
   }
 }
+
+code {
+  display: block;
+  white-space: pre-wrap   
+}

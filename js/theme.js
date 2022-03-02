@@ -1,6 +1,3 @@
-const currentYearElement = document.querySelector('#current-year');
-currentYearElement.textContent = new Date().getFullYear();
-
 const currentTheme = localStorage.getItem('theme');
 let dark = false;
 if (currentTheme) {
