@@ -124,14 +124,21 @@ footer {
   background-color: white;
 }
 
+.blog-image-long {
+  border-radius: 10px;
+  width: 350px;
+}
+
+.blog-image-high {
+  border-radius: 10px;
+  width: 250px;
+}
+
 @media (min-width: 400px) {
   .container {
     width: 90% !important;
   } 
 
-  img {
-    width: 100% !important;
-  }
 }
 
 @media (max-width: 400px) {
@@ -141,6 +148,16 @@ footer {
 
   img {
     width: 100% !important;
+  }
+}
+
+@media (max-width: 250px) {
+  .container {
+    width: 100% !important;
+  } 
+
+  img {
+    width: 75px !important;
   }
 }
 

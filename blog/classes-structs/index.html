@@ -65,7 +65,7 @@
           
           <p class="code-description">Então se você tem uma variável struct em uma função, a memória para aquela struct vai ser guardada dentro do stack frame da própria função.</p>
           <figure class="center">
-            <img style="width: 200px !important; border-radius: 10px" src="./img/cs_1.png" class="blog-image" />
+            <img src="./img/cs_1.png" class="blog-image blog-image-high" />
           </figure>
           
           <p class="code-description">Se tivermos um array de structs, a memória delas serão guardadas dentro do próprio array.</p>
@@ -75,7 +75,7 @@
             </code>
           </pre>
           <figure class="center">
-            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_2.png" class="blog-image" />
+            <img src="./img/cs_2.png" class="blog-image blog-image-long" />
           </figure>
 
           <p class="code-description">E se você tiver uma variável struct dentro de uma classe, a memória da struct vai ser guardada diretamente dentro de cada objeto.</p>
@@ -89,7 +89,7 @@
             </code>
           </pre>
           <figure class="center">
-            <img style="width: 200px !important; border-radius: 10px" src="./img/cs_3.png" class="blog-image" />
+            <img src="./img/cs_3.png" class="blog-image blog-image-high" />
           </figure>
 
           <p class="code-description">Structs e outros tipos com comportamentos iguais a esse como int's, floats e bool's são conhecidos como <strong>"tipos de valor"</strong>.</p>
@@ -106,7 +106,7 @@
             </code>
           </pre>
           <figure class="center">
-            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_4.png" class="blog-image" />
+            <img src="./img/cs_4.png" class="blog-image blog-image-high" />
           </figure>
 
           <p class="code-description">Então se a gente tiver uma variável de classe em uma função, o stack frame dessa função contém somente a referência para um objeto em algum lugar na heap.</p>
@@ -120,7 +120,7 @@
             </code>
           </pre>
           <figure class="center">
-            <img style="width: 300px !important; border-radius: 10px" src="./img/cs_5.png" class="blog-image" />
+            <img src="./img/cs_5.png" class="blog-image blog-image-long" />
           </figure>
 
           <p class="code-description">Se você tiver um array de objetos, o array é na realidade somente uma lista de referências para objetos.</p>
@@ -135,7 +135,7 @@
             </code>
           </pre>
           <figure class="center">
-            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_6.png" class="blog-image" />
+            <img src="./img/cs_6.png" class="blog-image blog-image-high" />
           </figure>
 
           <p class="code-description">E se tivermos uma variável de classe dentro de um objeto, também é somente uma referência.</p>
@@ -150,7 +150,7 @@
             </code>
           </pre>
           <figure class="center">
-            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_7.png" class="blog-image" />
+            <img src="./img/cs_7.png" class="blog-image blog-image-long" />
           </figure>
 
           <p class="code-description">Classes e outros tipos com esse comportamento como arrays, são conhecidos como <strong>"tipos de referência"</strong>.</p>
@@ -348,7 +348,7 @@
           <p>Se você tiver um array de structs, o próprio array é um objeto na heap. Mas as structs estão completamente contidas no array, então o garbage collector tem apenas um objeto pra considerar. Se o array sair do escopo, o garbage collector pode desalocar todas as structs dentro do array de uma vez.</p>
           <p class="code-description">Se qualquer outro fluxo de código recuperar uma struct desse array, irá ter uma cópia, não a original, então a gente pode desalocar a original com segurança quando o array sair do escopo.</p>
           <figure class="center">
-            <img style="width: 325px !important; border-radius: 10px" src="./img/cs_8.png" class="blog-image" />
+            <img src="./img/cs_8.png" class="blog-image blog-image-long" />
           </figure>
 
           <p>Se tivermos um array de objetos, o array, bem como cada objeto no array, são objetos separados na heap.</p>
@@ -356,32 +356,32 @@
           <p>Então, quando nosso array original sai do escopo, isso nos diz muito pouco sobre se podemos desalocar seus objetos.</p>
           <p class="code-description">O garbage collector deve considerar cada objeto individualmente e certificar-se de que não haja referências a cada objeto antes de desalocá-los.</p>
           <figure class="center">
-            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_9.png" class="blog-image" />
+            <img src="./img/cs_9.png" class="blog-image blog-image-high" />
           </figure>
           
           <p>Para tarefas com uso intenso de CPU, as structs oferecem outra vantagem.</p>
           <p>Devido à forma como o cache da CPU moderna funciona, pode operar muito mais rápido se todas as partes de memória em utilização estiverem próximas umas das outras.</p>
           <p class="code-description">Com um array de structs, todos os structs estão localizados de forma contínua na memória para que a CPU possa buscar de forma inteligente grandes pedaços de memória, conseguindo encontrar várias structs em uma única leitura.</p>
           <figure class="center">
-            <img style="width: 325px !important; border-radius: 10px" src="./img/cs_8.png" class="blog-image" />
+            <img src="./img/cs_8.png" class="blog-image blog-image-long" />
           </figure>
 
           <p class="code-description">Com um array de objetos, cada um pode estar em um local diferente na memória, então à medida que seu código faz um loop, a CPU pode precisar de memória de muitos lugares, exigindo uma leitura separada para cada objeto.</p>
           <figure class="center">
-            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_10.png" class="blog-image" />
+            <img src="./img/cs_10.png" class="blog-image blog-image-high" />
           </figure>
 
           <p>As structs só têm essa vantagem quando consistem em tipos de valor como int's, bool's e outras structs.</p>
 
           <p class="code-description">Se uma struct contém tipos de referência como classes e arrays, a memória para essas variáveis será novamente armazenada em locais aleatórios na heap, então se seu código intensivo de CPU ler essas variáveis, não vai ser capaz de usar o cache de forma tão eficaz.</p>
           <figure class="center">
-            <img style="width: 300px !important; border-radius: 10px" src="./img/cs_11.png" class="blog-image" />
+            <img src="./img/cs_11.png" class="blog-image blog-image-high" />
           </figure>
 
           <p>Portanto, se você tiver problemas com a demora do garbage collector ou se tiver um processo muito intenso da CPU, como loop em grandes arrays, o uso de structs pode melhorar o desempenho, mas caso contrário, a diferença pode ser insignificante.</p>
           <p>Em alguns casos, as structs podem ser mais lentas devido ao comportamento de cópia envolvido.</p>
           <p>Se sua struct tiver muitas variáveis que precisam ser copiadas, convertê-la em uma classe e apenas passar as referências pode ser mais rápido.</p>
-          <p class="code-description">Executar um teste e tentar debbugar usando um profiler é o melhor jeito para descobrir o que é melhor em cada caso.</p>
+          <p class="code-description">Executar um teste e tentar debuggar usando um profiler é o melhor jeito para descobrir o que é melhor em cada caso.</p>
 
           <hr />
 
@@ -390,7 +390,7 @@
           <p>Existem algumas outras diferenças práticas entre classes e structs.</p>
           <p class="code-description">As structs não podem ser nulas. Quando você considera como a memória para structs é alocada automaticamente, isso faz sentido. Quando você vê uma declaração de struct, sua memória já foi alocada.</p>
           <figure class="center">
-            <img style="width: 400px !important; border-radius: 10px" src="./img/cs_12.png" class="blog-image" />
+            <img src="./img/cs_12.png" class="blog-image blog-image-long" />
           </figure>
 
           <p>É possível implementar uma estrutura nullable adicionando um ponto de interrogação no final do tipo. Isso basicamente adiciona um valor booleano à sua struct para controlar se ela é nula.</p>
@@ -418,12 +418,12 @@
           <p>Se o seu construtor padrão fizer algo demorado, intensivo ou tiver efeitos colaterais em que se comporta de maneira diferente a cada vez que você o chama, isso pode resultar em muitos comportamentos inesperados.</p>
           <p class="code-description">Se desenvolvedores não fizessem coisas assim, não haveria problema em substituir o construtor padrão, mas os autores do C# decidiram que não valia a pena correr o risco.</p>
           <figure class="center">
-            <img style="width: 275px !important; border-radius: 10px" src="./img/cs_13.png" class="blog-image" />
+            <img src="./img/cs_13.png" class="blog-image blog-image-long" />
           </figure>
 
           <p class="code-description">Construtores para structs devem atribuir todas as propriedades existentes da struct, enquanto construtores para classes não.</p>
           <figure class="center">
-            <img style="width: 300px !important; border-radius: 10px" src="./img/cs_14.png" class="blog-image" />
+            <img src="./img/cs_14.png" class="blog-image blog-image-long" />
           </figure>
 
           <p>Não há conceito de herança para structs, mas podem implementar interfaces.</p>
@@ -457,17 +457,17 @@
             </code>
           </pre>
           <figure class="center">
-            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_15.png" class="blog-image" />
+            <img src="./img/cs_15.png" class="blog-image blog-image-high" />
           </figure>
 
           <br/>
 
           <p class="code-description">Por esse motivo, uma definição de struct não pode conter propriedade de uma struct do mesmo tipo. Isso basicamente criaria uma recursiva infinita.</p>
           <figure class="center">
-            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_16.png" class="blog-image" />
+            <img src="./img/cs_16.png" class="blog-image blog-image-long" />
           </figure>
           <figure class="center">
-            <img style="width: 200px !important; border-radius: 10px" src="./img/cs_17.png" class="blog-image" />
+            <img src="./img/cs_17.png" class="blog-image-high" />
           </figure>
 
           <br/>
@@ -475,13 +475,13 @@
           <p>As classes não têm esse problema pois uma classe é apenas uma referência a outra parte da memória em algum lugar do heap.</p>
           <p class="code-description">Uma variável de classe pode fazer referência a outro objeto, não fazer referência a nada ou mesmo fazer referência a si mesma.</p>
           <figure class="center">
-            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_18.png" class="blog-image" />
+            <img src="./img/cs_18.png" class="blog-image blog-image-high" />
           </figure>
           <figure class="center">
-            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_19.png" class="blog-image" />
+            <img src="./img/cs_19.png" class="blog-image blog-image-high" />
           </figure>
           <figure class="center">
-            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_20.png" class="blog-image" />
+            <img src="./img/cs_20.png" class="blog-image blog-image-high" />
           </figure>
         </article>
       </div>
