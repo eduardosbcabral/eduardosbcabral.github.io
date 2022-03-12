@@ -127,20 +127,20 @@
               <h5>Receber mensagens seletivamente</h5>
               <p>Routing torna possível dar subscribe em somente um subset de mensagens.</p>
               <p>Estávamos utilizando uma exchange do tipo fanout, que transmite sem especificidade.</p>
-              <p>Agora iremos usar uma exchange do tipo <strong>direct</strong>, com ela conseguimos utilizar o roteamento de mensagens. A mensagem irá para as filas que a <code>binding key</code><strong> </strong>seja exatamente igual à <code>routing key</code> da mensagem.</p>
+              <p>Agora iremos usar uma exchange do tipo <strong>direct</strong>, com ela conseguimos utilizar o roteamento de mensagens. A mensagem irá para as filas que a <code class="highlighter">binding key</code><strong> </strong>seja exatamente igual à <code class="highlighter">routing key</code> da mensagem.</p>
               <figure class="center">
                 <a href="/blog/rabbitmq/img/rabbitmq_2.png">
                   <img style="width:408px" src="/blog/rabbitmq/img/rabbitmq_2.png" class="blog-image" />
                 </a>
                 <figcaption>
-                  A exchange X (direct) tem duas filas atreladas. A primeira tem a binding key <code>orange</code> 
-                  e a segunda tem duas bindings, uma para a key <code>black</code> e outra para a <code>green</code>. 
+                  A exchange X (direct) tem duas filas atreladas. A primeira tem a binding key <code class="highlighter">orange</code> 
+                  e a segunda tem duas bindings, uma para a key <code class="highlighter">black</code> e outra para a <code class="highlighter">green</code>. 
                   <strong>As mensagens que não utilizarem uma das 3 chaves serão descartadas.</strong>
                 </figcaption>
               </figure>
 
               <h5>Multiples Bindings (Ligações)</h5>
-              <p>Também podemos utilizar a mesma <code>binding key</code> para múltiplas filas, ou seja, a <strong>exchange </strong>do tipo <strong>direct </strong>irá se comportar exatamente da mesma forma que uma <strong>fanout</strong>.</p>
+              <p>Também podemos utilizar a mesma <code class="highlighter" class="highlighter">binding key</code> para múltiplas filas, ou seja, a <strong>exchange </strong>do tipo <strong>direct </strong>irá se comportar exatamente da mesma forma que uma <strong>fanout</strong>.</p>
               <figure class="center">
                 <a href="/blog/rabbitmq/img/rabbitmq_3.png">
                   <img style="width:398px" src="/blog/rabbitmq/img/rabbitmq_3.png" class="blog-image" />
@@ -160,13 +160,13 @@
             
             <div>
               <h4>Tópicos</h4>
-              <p>Caso surja a necessidade de melhorar o fluxo da exchange, podemos usar o tipo <code>topic</code>, que é mais complexo e consegue manipular mensagens baseados em múltiplos critérios.</p>
-              <p>Mensagens enviadas para uma exchange do tipo <code>topic</code> precisam que seu <code>routing_key</code> seja composta por uma lista de palavras separadas por <code>.</code> , normalmente são relacionadas ao assunto/conteúdo/regra da mensagem enviada.</p>
+              <p>Caso surja a necessidade de melhorar o fluxo da exchange, podemos usar o tipo <code class="highlighter">topic</code>, que é mais complexo e consegue manipular mensagens baseados em múltiplos critérios.</p>
+              <p>Mensagens enviadas para uma exchange do tipo <code class="highlighter">topic</code> precisam que seu <code class="highlighter">routing_key</code> seja composta por uma lista de palavras separadas por <code class="highlighter">.</code> , normalmente são relacionadas ao assunto/conteúdo/regra da mensagem enviada.</p>
               <p>
-                A <code>binding key</code> também precisa ser da mesma forma. A lógica de um <code>topic</code> é parecida com de um <code>direct</code> - uma mensagem enviada para uma <code>routing key</code> em particular será entregada para todas as queue&#x27;s que estão ligadas a essa <code>binding key</code> . Mas tem dois casos especiais nesse tipo de exchange:
+                A <code class="highlighter">binding key</code> também precisa ser da mesma forma. A lógica de um <code class="highlighter">topic</code> é parecida com de um <code class="highlighter">direct</code> - uma mensagem enviada para uma <code class="highlighter">routing key</code> em particular será entregada para todas as queue&#x27;s que estão ligadas a essa <code class="highlighter">binding key</code> . Mas tem dois casos especiais nesse tipo de exchange:
                 <ul>
-                  <li><code>*</code> pode substituir exatamente uma palavra.</li>
-                  <li><code>#</code> pode substituir zero ou mais palavras.</li>
+                  <li><code class="highlighter">*</code> pode substituir exatamente uma palavra.</li>
+                  <li><code class="highlighter">#</code> pode substituir zero ou mais palavras.</li>
                 </ul>
               </p>
               <figure class="center">
@@ -174,8 +174,8 @@
                   <img style="width:424px" src="/blog/rabbitmq/img/rabbitmq_5.png" class="blog-image" />
                 </a>
               </figure>
-              <p>Nesse exemplo, iremos mandar mensagens que descrevem animais. As <code>routing keys</code> das mensagens irão consistir de 3 nomes: <code>&lt;speed&gt;.&lt;colour&gt;.&lt;species&gt;</code>.</p>
-              <p>Foram criadas 3 ligações: Q1 está ligada com a binding key <code>*.orange.*</code> e Q2 está com <code>*.*.rabbit</code> e <code>lazy.#</code> .</p>
+              <p>Nesse exemplo, iremos mandar mensagens que descrevem animais. As <code class="highlighter">routing keys</code> das mensagens irão consistir de 3 nomes: <code class="highlighter">&lt;speed&gt;.&lt;colour&gt;.&lt;species&gt;</code>.</p>
+              <p>Foram criadas 3 ligações: Q1 está ligada com a binding key <code class="highlighter">*.orange.*</code> e Q2 está com <code class="highlighter">*.*.rabbit</code> e <code class="highlighter">lazy.#</code> .</p>
               <p>Pode ser sumarizada de forma que:
                 <ul>
                   <li>Q1 está interessada em todos os animais laranjas.</li>
@@ -184,17 +184,17 @@
               </p>
               <p>Mensagens(routing key):
                 <ul>
-                  <li><code>quick.orange.rabbit</code>: ambas as filas</li>
-                  <li><code>lazy.orange.elephant</code>: ambas as filas</li>
-                  <li><code>quick.orange.fox</code>: primeira fila</li>
-                  <li><code>lazy.brown.fox</code>: segunda fila</li>
-                  <li><code>lazy.pink.rabbit</code>: segunda primeira (única vez)</li>
-                  <li><code>quick.orange.male.rabbit</code>: nenhuma fila. Irá ser ignorada pois tem quatro palavras e não bate com nenhuma binding key.</li>
-                  <li><code>lazy.orange.male.rabbit</code>: segunda fila. Não irá ser ignorada pois bate com a binding (&quot;*.*.rabbit&quot;) mesmo que tenha 4 palavras.</li>
+                  <li><code class="highlighter">quick.orange.rabbit</code>: ambas as filas</li>
+                  <li><code class="highlighter">lazy.orange.elephant</code>: ambas as filas</li>
+                  <li><code class="highlighter">quick.orange.fox</code>: primeira fila</li>
+                  <li><code class="highlighter">lazy.brown.fox</code>: segunda fila</li>
+                  <li><code class="highlighter">lazy.pink.rabbit</code>: segunda primeira (única vez)</li>
+                  <li><code class="highlighter">quick.orange.male.rabbit</code>: nenhuma fila. Irá ser ignorada pois tem quatro palavras e não bate com nenhuma binding key.</li>
+                  <li><code class="highlighter">lazy.orange.male.rabbit</code>: segunda fila. Não irá ser ignorada pois bate com a binding (&quot;*.*.rabbit&quot;) mesmo que tenha 4 palavras.</li>
                 </ul>
               </p>
               <p></p>
-              <p>Obs: uma exchange do tipo <code>topic</code> é bastante versátil, podendo servir como uma <code>fanout</code> quando a fila está ligada com uma <code>#</code>. E se nenhum dos caracteres <code>#</code> e <code>*</code> forem usados, irá servir como um <code>direct</code>.</p>
+              <p>Obs: uma exchange do tipo <code class="highlighter">topic</code> é bastante versátil, podendo servir como uma <code class="highlighter">fanout</code> quando a fila está ligada com uma <code class="highlighter">#</code>. E se nenhum dos caracteres <code class="highlighter">#</code> e <code class="highlighter">*</code> forem usados, irá servir como um <code class="highlighter">direct</code>.</p>
             </div>
             
             <hr />

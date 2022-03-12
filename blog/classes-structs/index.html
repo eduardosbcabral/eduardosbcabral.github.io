@@ -1,0 +1,496 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>RabbitMQ | Blog - Eduardo Cabral</title>
+    <meta name="title" content="Eduardo Cabral - Software Developer">
+    <meta name="description" content="My name is Eduardo and i'm a software developer.">
+    
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://educabral.me/blog/rabbitmq/">
+    <meta property="og:title" content="RabbitMQ | Blog - Eduardo Cabral">
+    <meta property="og:description" content="Artigo sobre RabbitMQ.">
+    <meta property="og:image" content="https://educabral.me/images/ec.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://educabral.me/blog/rabbitmq/">
+    <meta property="twitter:title" content="RabbitMQ | Blog - Eduardo Cabral">
+    <meta property="twitter:description" content="Artigo sobre RabbitMQ.">
+    <meta property="twitter:image" content="https://educabral.me/images/ec.png">
+    <meta name="twitter:site" content="@eduardobcabral" />
+    <meta name="twitter:label1" content="Est. tempo de leitura">
+    <meta name="twitter:data1" content="10 minutos">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QKENBKFQWM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-QKENBKFQWM');
+    </script>
+
+    <link rel="stylesheet" href="/css/normalize.css"></link>
+    <link rel="stylesheet" href="/css/skeleton.css"></link>
+    <link rel="stylesheet" href="/css/custom.css"></link>
+    <link rel="stylesheet" href="/css/prism.css"></link>
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.ico"/>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="u-cf u-full-width">
+        <button class="button button-custom u-pull-right" id="theme-button">Change theme</button>
+        <a href="/blog/" class="button button-primary u-pull-right">Blog</a>
+      </nav>
+      <div class="container">
+        <h2 class="center">Diferenças entre classes e structs no C#</h2>
+
+        <article>
+          <p>Irei explicar detalhadamente a parte mais técnica da diferença entre as classes e structs no C#, passando pelos tópicos de como a memória e alocada, exemplos de uso, performance e diferenças.</p>
+          
+          <hr />
+          <h3>Como a memória é alocada</h3>
+          <p class="code-description">Toda vez em que você vê uma variável struct, a memória para aquela struct irá ser guardada no mesmo local em que a variável.</p>
+          <pre>
+            <code class="language-csharp">
+             void DemoFunction()
+              {
+                DemoStruct struct1;
+              }
+            </code>
+          </pre>
+          
+          <p class="code-description">Então se você tem uma variável struct em uma função, a memória para aquela struct vai ser guardada dentro do stack frame da própria função.</p>
+          <figure class="center">
+            <img style="width: 200px !important; border-radius: 10px" src="./img/cs_1.png" class="blog-image" />
+          </figure>
+          
+          <p class="code-description">Se tivermos um array de structs, a memória delas serão guardadas dentro do próprio array.</p>
+          <pre>
+            <code class="language-csharp">
+              DemoStruct[] structArray = new DemoStruct[3];
+            </code>
+          </pre>
+          <figure class="center">
+            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_2.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">E se você tiver uma variável struct dentro de uma classe, a memória da struct vai ser guardada diretamente dentro de cada objeto.</p>
+          <pre>
+            <code class="language-csharp">
+             class DemoClass
+              {
+                public int X { get; set; }
+                public DemoStruct childStruct;
+              }
+            </code>
+          </pre>
+          <figure class="center">
+            <img style="width: 200px !important; border-radius: 10px" src="./img/cs_3.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">Structs e outros tipos com comportamentos iguais a esse como int's, floats e bool's são conhecidos como <strong>"tipos de valor"</strong>.</p>
+          <pre>
+            <code class="language-csharp">
+              DemoStruct, int, float, bool
+            </code>
+          </pre>
+
+          <p class="code-description">Em contraste, toda vez que você vê uma variável de classe, ela é somente uma referência para um objeto que é armazenado em um local aleatório na heap.</p>
+          <pre>
+            <code class="language-csharp">
+              DemoClass object1 = new();
+            </code>
+          </pre>
+          <figure class="center">
+            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_4.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">Então se a gente tiver uma variável de classe em uma função, o stack frame dessa função contém somente a referência para um objeto em algum lugar na heap.</p>
+          <pre>
+            <code class="language-csharp">
+             void DemoFunction()
+              {
+                DemoClass object1 = new();
+                ...
+              }
+            </code>
+          </pre>
+          <figure class="center">
+            <img style="width: 300px !important; border-radius: 10px" src="./img/cs_5.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">Se você tiver um array de objetos, o array é na realidade somente uma lista de referências para objetos.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoClass[] objectArray = new DemoClass[]
+              {
+                new DemoClass(),
+                new DemoClass(),
+                new DemoClass()
+              };
+            </code>
+          </pre>
+          <figure class="center">
+            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_6.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">E se tivermos uma variável de classe dentro de um objeto, também é somente uma referência.</p>
+          <pre>
+            <code class="language-csharp">
+             class DemoClass
+              {
+                public int X { get; set; }
+                public int Y { get; set; }
+                public DemoClass childObject { get; set; }
+              }
+            </code>
+          </pre>
+          <figure class="center">
+            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_7.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">Classes e outros tipos com esse comportamento como arrays, são conhecidos como <strong>"tipos de referência"</strong>.</p>
+          <pre>
+            <code class="language-csharp">
+              DemoClass, []
+            </code>
+          </pre>
+
+          <p class="code-description">A relevância dessa diferença fica aparente quando começamos a atribuir variáveis de classes e structs.</p>
+          <p class="code-description">Obs: o código abaixo irá ser usado nas explicações subsequentes.</p>
+          <pre data-line="1,4-6,8,19-20">
+            <code class="language-csharp">
+              DemoStruct struct1 = new();
+              struct1.x = 4;
+
+              DemoStruct struct2 = struct1;
+              ref DemoStruct struct3 = ref struct2;
+              IInterfaceDemo struct4 = new DemoStruct(1, 5);
+
+              DemoStruct struct5;
+              struct5.x = 1;
+              struct5.y = 2;
+              struct5.structArray = null;
+              struct5.childObject = null;
+
+              struct5 = GetModifiedStruct(struct5);
+
+              DemoClass object1;
+              DemoClass object2;
+
+              object1 = new DemoClass(0);
+              object2 = object1;
+
+              ModifyObject(object2);
+            </code>
+          </pre>
+          <p class="code-description">E também quando passamos elas como parâmetros de uma função..</p>
+          <pre>
+            <code class="language-csharp">
+             struct5 = GetModifiedStruct(struct5);
+              ModifyObject(object2);
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">Toda vez que uma variável struct entra no escopo(da função), podemos assumir que a memória para ela já foi alocada.</p>
+          <pre>
+            <code class="language-csharp">
+              DemoStruct struct1 = new();
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">Então, se declararmos duas variáveis struct, mesmo que não façamos nada com elas, quando as variáveis entrarem no escopo, o sistema irá alocar memória para elas. O sistema não permite que você leia essas variáveis antes de serem atribuídas, mas isso é apenas o C# protegendo você de dar um tiro no próprio pé.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoStruct struct1 = new();
+              DemoStruct struct2 = struct1;            
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description"> Se você atribuir todas as propriedades de uma struct manualmente, podemos utilizá-la sem nunca alocar explicitamente a memória.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoStruct struct5;
+              struct5.x = 1;
+              struct5.y = 2;
+              struct5.structArray = null;
+              struct5.childObject = null;         
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">Na prática, inicializar uma struct desse jeito é muito ruim de se usar, então a gente pode apenas usar a palavra-chave <code>new</code>.</p>
+          <pre>
+            <code class="language-csharp">
+              DemoStruct struct1 = new();      
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">A palavra-chave <code class="highlighter">new</code> para structs é basicamente uma formalidade para chamar um dos construtores. A memória não é alocada igual acontece quando instanciamos classes. Usar a palavra "new" em ambos os lugares pode ser confuso e faz as classes e structs parecerem mais semelhantes do que realmente são.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoStruct struct1 = new();
+              object1 = new DemoClass(0);
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">Neste exemplo, estamos chamando o construtor padrão da struct, que define todas as propriedades com seus valores padrão.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoStruct struct1 = new();
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">Agora que inicializamos a primeira struct, vamos atribuí-la à segunda variável de struct. A memória para a segunda variável já foi alocada, então quando atribuímos a 1ª variável a ela, ela simplesmente copia os dados da primeira struct para a segunda.</p>
+          <pre>
+            <code class="language-csharp">
+              DemoStruct struct2 = struct1;
+            </code>
+          </pre>
+          <p class="code-description">Agora temos duas structs completamente separadas. Modificar a struct1 não afetará a struct2.</p>
+          
+          <br />
+
+          <p class="code-description">Agora vamos ver como isso funciona com as classes.  Aqui, declaramos duas variáveis de classe. Quando essas variáveis entram no escopo, o sistema aloca apenas espaço suficiente para manter uma referência de memória. Por padrão, essas referências de memória são referências "nulas", o que significa que não apontam para nada.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoClass object1;
+              DemoClass object2;
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">Agora vamos atribuir a primeira variável. Criamos um novo objeto usando a palavra-chave <code class="highlighter">new</code>. Isso aloca um pedaço de memória na heap e nos dá uma referência de onde essa memória está localizada. Agora atribuímos essa referência à nossa variável de classe.</p>
+          <pre>
+            <code class="language-csharp">
+              object1 = new DemoClass(0);
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p class="code-description">Agora vamos atribuir a 1ª variável à segunda variável. Isso simplesmente copia a referência do objeto da primeira para a segunda.</p>
+          <pre>
+            <code class="language-csharp">
+              object2 = object1;
+            </code>
+          </pre>
+          <p class="code-description">Agora, ambas as variáveis referem-se ao mesmo local na memória, portanto, modificar o object1 também modificará o object2;</p>
+
+          <p class="code-description">Algo semelhante acontece quando passamos uma variável de classe para uma função. O parâmetro da função simplesmente obtém o endereço de memória da variável que você passa para ele. Então, se o objeto for modificado dentro da função, o objeto fora também será modificado.</p>
+          <pre>
+            <code class="language-csharp">
+             ModifyObject(object2);
+
+              void ModifyObject(DemoClass objectToModify)
+              {
+                objectToModify.x += 5;
+              }
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p>Este não é o caso das structs.</p>
+          <p>Se definirmos uma função com um parâmetro struct, quando essa função for chamada e o parâmetro entrar em escopo, o sistema alocará automaticamente memória para guardar essa struct e pegará a que você passou para a função e copiará seus valores para a nova memória que acabou de alocar.</p>
+          <p>Se a função modificar alguma propriedade da struct, essas alterações não afetarão a estrutura fora da função, porque as structs estão usando pedaços diferentes da memória.</p>
+          <p class="code-description">Então se quisermos continuar com a struct modificada, precisamos retornar explicitamente e copiar os valores de volta para a variável original.</p>
+          <pre>
+            <code class="language-csharp">
+             struct5 = GetModifiedStruct(struct5);
+
+              DemoStruct GetModifiedStruct(DemoStruct structToModify)
+              {
+                structToModify.x += 5;
+                return structToModify;
+              }
+            </code>
+          </pre>
+          
+          <br/>
+
+          <p>Como as novas variáveis de struct sempre alocam nova memória, você pode pensar que as estruturas são imutáveis, mas esse não é o caso.</p>
+          <p>Se você atribuir um valor a uma propriedade de uma struct, essa variável será modificada conforme o esperado.</p>
+          <p class="code-description">A duplicação ocorre apenas quando você atribui a própria variável de struct.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoStruct struct1 = new();
+              struct1.x = 4;
+
+              DemoStruct struct2 = struct1;
+            </code>
+          </pre>
+          
+          <hr />
+
+          <h3>Performance</h3>
+
+          <p>Existem algumas implicações de desempenho no uso de classes versus structs, mas não é sempre que structs são mais rápidas.</p>
+          <p>As structs tornam o gerenciamento de memória mais simples e isso às vezes pode melhorar o desempenho.</p>
+          <p>Se você tiver um array de structs, o próprio array é um objeto na heap. Mas as structs estão completamente contidas no array, então o garbage collector tem apenas um objeto pra considerar. Se o array sair do escopo, o garbage collector pode desalocar todas as structs dentro do array de uma vez.</p>
+          <p class="code-description">Se qualquer outro fluxo de código recuperar uma struct desse array, irá ter uma cópia, não a original, então a gente pode desalocar a original com segurança quando o array sair do escopo.</p>
+          <figure class="center">
+            <img style="width: 325px !important; border-radius: 10px" src="./img/cs_8.png" class="blog-image" />
+          </figure>
+
+          <p>Se tivermos um array de objetos, o array, bem como cada objeto no array, são objetos separados na heap.</p>
+          <p>Cada objeto pode ser armazenado em uma parte totalmente diferente da heap e outras variáveis e arrays podem ter referências a esses mesmos objetos.</p>
+          <p>Então, quando nosso array original sai do escopo, isso nos diz muito pouco sobre se podemos desalocar seus objetos.</p>
+          <p class="code-description">O garbage collector deve considerar cada objeto individualmente e certificar-se de que não haja referências a cada objeto antes de desalocá-los.</p>
+          <figure class="center">
+            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_9.png" class="blog-image" />
+          </figure>
+          
+          <p>Para tarefas com uso intenso de CPU, as structs oferecem outra vantagem.</p>
+          <p>Devido à forma como o cache da CPU moderna funciona, pode operar muito mais rápido se todas as partes de memória em utilização estiverem próximas umas das outras.</p>
+          <p class="code-description">Com um array de structs, todos os structs estão localizados de forma contínua na memória para que a CPU possa buscar de forma inteligente grandes pedaços de memória, conseguindo encontrar várias structs em uma única leitura.</p>
+          <figure class="center">
+            <img style="width: 325px !important; border-radius: 10px" src="./img/cs_8.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">Com um array de objetos, cada um pode estar em um local diferente na memória, então à medida que seu código faz um loop, a CPU pode precisar de memória de muitos lugares, exigindo uma leitura separada para cada objeto.</p>
+          <figure class="center">
+            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_10.png" class="blog-image" />
+          </figure>
+
+          <p>As structs só têm essa vantagem quando consistem em tipos de valor como int's, bool's e outras structs.</p>
+
+          <p class="code-description">Se uma struct contém tipos de referência como classes e arrays, a memória para essas variáveis será novamente armazenada em locais aleatórios na heap, então se seu código intensivo de CPU ler essas variáveis, não vai ser capaz de usar o cache de forma tão eficaz.</p>
+          <figure class="center">
+            <img style="width: 300px !important; border-radius: 10px" src="./img/cs_11.png" class="blog-image" />
+          </figure>
+
+          <p>Portanto, se você tiver problemas com a demora do garbage collector ou se tiver um processo muito intenso da CPU, como loop em grandes arrays, o uso de structs pode melhorar o desempenho, mas caso contrário, a diferença pode ser insignificante.</p>
+          <p>Em alguns casos, as structs podem ser mais lentas devido ao comportamento de cópia envolvido.</p>
+          <p>Se sua struct tiver muitas variáveis que precisam ser copiadas, convertê-la em uma classe e apenas passar as referências pode ser mais rápido.</p>
+          <p class="code-description">Executar um teste e tentar debbugar usando um profiler é o melhor jeito para descobrir o que é melhor em cada caso.</p>
+
+          <hr />
+
+          <h3>Diferenças práticas</h3>
+
+          <p>Existem algumas outras diferenças práticas entre classes e structs.</p>
+          <p class="code-description">As structs não podem ser nulas. Quando você considera como a memória para structs é alocada automaticamente, isso faz sentido. Quando você vê uma declaração de struct, sua memória já foi alocada.</p>
+          <figure class="center">
+            <img style="width: 400px !important; border-radius: 10px" src="./img/cs_12.png" class="blog-image" />
+          </figure>
+
+          <p>É possível implementar uma estrutura nullable adicionando um ponto de interrogação no final do tipo. Isso basicamente adiciona um valor booleano à sua struct para controlar se ela é nula.</p>
+          <p>É meio que uma gambiarra, mas pode ser útil quando você não consegue retornar uma struct válida.</p>
+          <p class="code-description">A versão nullable de uma struct ainda é um tipo de valor, então ainda tem todas as características de memória de uma struct comum.</p>
+          <pre>
+            <code class="language-csharp">
+             DemoStruct? struct6 = null;
+              if (struct6 != null) { /* Não irá ser executado */ }
+
+              struct6 = new DemoStruct();
+              if (struct6.HasValue) 
+              {
+                DemoStruct struct7 = struc6.Value;
+                struct7.X = 1; // struct 7 é uma struct não-nullable comum
+              }
+            </code>
+          </pre>
+
+          <br/>
+
+          <p>Você não pode implementar um construtor sem parâmetros para uma struct. Isso ocorre devido à forma como as structs são alocadas.</p>
+          <p>Quando você cria um array de structs, o sistema chama automaticamente o construtor padrão para inicializar cada uma com seus valores padrão.</p>
+          <p>Se você conseguisse substituir o construtor padrão, ele executaria seu código personalizado várias vezes sempre que alguém criar uma array de suas structs.</p>
+          <p>Se o seu construtor padrão fizer algo demorado, intensivo ou tiver efeitos colaterais em que se comporta de maneira diferente a cada vez que você o chama, isso pode resultar em muitos comportamentos inesperados.</p>
+          <p class="code-description">Se desenvolvedores não fizessem coisas assim, não haveria problema em substituir o construtor padrão, mas os autores do C# decidiram que não valia a pena correr o risco.</p>
+          <figure class="center">
+            <img style="width: 275px !important; border-radius: 10px" src="./img/cs_13.png" class="blog-image" />
+          </figure>
+
+          <p class="code-description">Construtores para structs devem atribuir todas as propriedades existentes da struct, enquanto construtores para classes não.</p>
+          <figure class="center">
+            <img style="width: 300px !important; border-radius: 10px" src="./img/cs_14.png" class="blog-image" />
+          </figure>
+
+          <p>Não há conceito de herança para structs, mas podem implementar interfaces.</p>
+          <p class="code-description">Se você armazenar uma struct em uma variável de interface, ela na verdade se transforma em um tipo de referência, como uma classe.</p>
+          <pre>
+            <code class="language-csharp">
+             public struct DemoStruct : IInterfaceDemo
+              
+              IInterfaceDemo struct4 = new DemoStruct(1, 5);
+            </code>
+          </pre>
+
+          <br/>
+
+          <p>Há uma diferença final que é uma consequência reveladora de como as estruturas são armazenadas.</p>
+          <p class="code-description">Se uma definição de struct tiver outra variável struct dentro dela, a memória para a interna estará contida dentro da principal.</p>
+          <pre>
+            <code class="language-csharp">
+             public struct DemoStruct
+              {
+                public float x;
+                public float y;
+                public OtherStruct otherStruct1;
+              }
+
+              public struct OtherStruct
+              {
+                public int a;
+                public int b;
+              }
+            </code>
+          </pre>
+          <figure class="center">
+            <img style="width: 250px !important; border-radius: 10px" src="./img/cs_15.png" class="blog-image" />
+          </figure>
+
+          <br/>
+
+          <p class="code-description">Por esse motivo, uma definição de struct não pode conter propriedade de uma struct do mesmo tipo. Isso basicamente criaria uma recursiva infinita.</p>
+          <figure class="center">
+            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_16.png" class="blog-image" />
+          </figure>
+          <figure class="center">
+            <img style="width: 200px !important; border-radius: 10px" src="./img/cs_17.png" class="blog-image" />
+          </figure>
+
+          <br/>
+
+          <p>As classes não têm esse problema pois uma classe é apenas uma referência a outra parte da memória em algum lugar do heap.</p>
+          <p class="code-description">Uma variável de classe pode fazer referência a outro objeto, não fazer referência a nada ou mesmo fazer referência a si mesma.</p>
+          <figure class="center">
+            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_18.png" class="blog-image" />
+          </figure>
+          <figure class="center">
+            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_19.png" class="blog-image" />
+          </figure>
+          <figure class="center">
+            <img style="width: 350px !important; border-radius: 10px" src="./img/cs_20.png" class="blog-image" />
+          </figure>
+        </article>
+      </div>
+      <hr />
+      <footer class="container center">
+        Copyright Eduardo Cabral © <span id="current-year"></span>
+      </footer>
+      <script src="/js/theme.js"></script>
+      <script src="/js/script.js"></script>
+      <script src="/js/prism.js"></script>
+  </body>
+</html>

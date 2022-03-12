@@ -79,6 +79,8 @@ footer {
 
   --inverse-text-color: #FFF;
   --inverse-background: #333;
+
+  --background-code-block: #2d2d2d;
 }
 
 [data-theme="dark"]  {
@@ -90,9 +92,15 @@ footer {
 
   --inverse-text-color: #333;
   --inverse-background: #FFF;
+
+  --background-code-block: #000;
 }
 
-code {
+.code-block {
+  display: block;
+  white-space: pre-wrap;
+}
+.highlighter {
   color: var(--inverse-text-color);
   background: var(--inverse-background);
 }
@@ -137,6 +145,13 @@ code {
 }
 
 code {
-  display: block;
-  white-space: pre-wrap   
+  border: 0;
+}
+
+:not(pre)>code[class*=language-], pre[class*=language-] {
+  background: var(--background-code-block) !important;
+}
+
+.code-description {
+  margin-bottom: 0 !important;
 }
